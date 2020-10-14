@@ -5,13 +5,10 @@ void readDate(int* pointer)
 {	
 	printf("Insira o dia: ");
 	scanf("%d", &pointer[0]);
-	
 	printf("Insira o mês: ");
 	scanf("%d", &pointer[1]);
-	
 	printf("Insira o ano: ");
 	scanf("%d", &pointer[2]);
-	
 	printf("\n");
 	return;
 }
@@ -58,22 +55,31 @@ int getDayOfTheYear(int day, int month, int year)
 	return dayOfTheYear;
 }
 
+int daysDiff(int* minorDate, int* majorDate)
+{
+	int daysA = getDayOfTheYear(minorDate[0], minorDate[1], minorDate[2]);
+	int daysB = getDayOfTheYear(majorDate[0], majorDate[1], majorDate[2]);
+	int diff = daysB - daysA;
+	if (minorDate[2] != majorDate[2]) {
+		for (int i = minorDate[2]; i < majorDate[2]; i++) {
+			diff += isLeapYear(i) ? 366 : 365;
+		}
+	}
+	return diff;
+}
+
 int main()
 {
 	SetConsoleOutputCP(1252);
-	
-	int dateA[3], dateB[3];
+	int dateA[3], dateB[3], diff;
 	readDate(dateA);
 	readDate(dateB);
-	printf("Data A: %d/%d/%d\n", dateA[0], dateA[1], dateA[2]);
-	printf("Data B: %d/%d/%d\n", dateB[0], dateB[1], dateB[2]);
 	orderDates(dateA, dateB);
-	printf("Data A: %d/%d/%d\n", dateA[0], dateA[1], dateA[2]);
-	printf("Data B: %d/%d/%d\n", dateB[0], dateB[1], dateB[2]);
-	
-	printf("\nDia do ano A: %d\n", getDayOfTheYear(dateA[0], dateA[1], dateA[2]));
-	printf("Dia do ano B: %d\n", getDayOfTheYear(dateB[0], dateB[1], dateB[2]));
-	
+	diff = daysDiff(dateA, dateB);
+	printf("Entre as datas %d/%d/%d e %d/%d/%d há %d dia%s de diferença.", 
+		dateA[0], dateA[1], dateA[2],
+		dateB[0], dateB[1], dateB[2],
+		diff, diff != 1 ? "s" : "");
 	return 1;
 }
 
