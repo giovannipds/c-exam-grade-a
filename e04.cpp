@@ -5,7 +5,7 @@ int main()
 {
 	SetConsoleOutputCP(1252);
 	
-	float p1, p2, p3, p4, a;
+	float p1, p2, p3, p4, oldA, a;
 	
 	printf("Digite o preço do produto no estabelecimento 1: ");
 	scanf("%f", &p1);
@@ -20,7 +20,20 @@ int main()
 	scanf("%f", &p4);
 	
 	a = (p1 + p2 + p3 + p4) / 4;
-	printf("\nO valor médio do produto é: R$%.2f", a);
+	
+	printf("Digite agora o valor médio do produto na semana passada: ");
+	scanf("%f", &oldA);
+	
+	printf("\nO valor médio da semana anterior era: R$%.2f", oldA);
+	printf("\nO valor médio da semana atual é: R$%.2f\n", a);
+	
+	if (oldA < a) {
+		printf("Houve inflação");
+	} else if (oldA > a) {
+		printf("Houve deflação");
+	} else {
+		printf("Houve estabilidade de preços");
+	}
 	
 	return 1;
 }
