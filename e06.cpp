@@ -18,18 +18,19 @@ void readDate(int* pointer)
 
 void orderDates(int* dateA, int* dateB)
 {
-	int dateTemp[3];
-	if (dateA[2] > dateB[2]) {
-		dateTemp[0] = dateA[0];
-		dateTemp[1] = dateA[1];
-		dateTemp[2] = dateA[2];
-		dateA[0] = dateB[0];
-		dateA[1] = dateB[1];
-		dateA[2] = dateB[2];
-		dateB[0] = dateTemp[0];
-		dateB[1] = dateTemp[1];
-		dateB[2] = dateTemp[2];
-	}
+	if (dateA[2] < dateB[2])
+		return;
+	if (dateA[1] < dateB[1])
+		return;
+	if (dateA[0] < dateB[0])
+		return;
+	int dateTemp[3] = { dateA[0], dateA[1], dateA[2] };
+	dateA[0] = dateB[0];
+	dateA[1] = dateB[1];
+	dateA[2] = dateB[2];
+	dateB[0] = dateTemp[0];
+	dateB[1] = dateTemp[1];
+	dateB[2] = dateTemp[2];
 	return;
 }
 
