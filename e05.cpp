@@ -7,6 +7,51 @@ const char *months[12] = {
 	"Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
 };
 
+bool validYear(int year);
+bool validMonth(int month);
+bool isLeapYear(int year);
+int* getMonthDaysArray(int year);
+bool validDay(int day, int month, int year);
+bool validateDate(int day, int month, int year);
+char* longDate(int day, int month, int year);
+int getDayOfTheYear(int day, int month, int year);
+
+int main()
+{
+	SetConsoleOutputCP(1252);
+	
+	int d, m, y;
+	bool validDate;
+	
+	printf("Insira o dia: ");
+	scanf("%d", &d);
+	
+	printf("Insira o mês: ");
+	scanf("%d", &m);
+	
+	printf("Insira o ano: ");
+	scanf("%d", &y);
+	
+//	printf("\nDia: %d \nMês: %d \nAno: %d \n\n", d, m, y);
+	
+	validDate = validateDate(d, m, y);
+	printf("\na) Data %s.\n", validDate ? "válida" : "inválida");
+	
+	if (!validDate)
+		return 0;
+		
+	printf("b) Data por extenso: %s.\n", longDate(d, m, y));
+	
+	printf("c) Dia do ano: %d.", getDayOfTheYear(d, m, y));
+	
+	return 1;
+}
+
+bool validateDate(int day, int month, int year)
+{
+	return validYear(year) && validMonth(month) && validDay(day, month, year);
+}
+
 bool validYear(int year)
 {
 	return year >= 1900 && year <= 2100;
@@ -17,9 +62,10 @@ bool validMonth(int month)
 	return month >= 1 && month <= 12;
 }
 
-bool isLeapYear(int year)
+bool validDay(int day, int month, int year)
 {
-	return year % 4 == 0 && ! (year % 100 == 0 && ! (year % 400 == 0));
+	int* monthDays = getMonthDaysArray(year);
+	return day >= 1 && day <= monthDays[month - 1];
 }
 
 int* getMonthDaysArray(int year)
@@ -31,15 +77,9 @@ int* getMonthDaysArray(int year)
 	return monthDays;
 }
 
-bool validDay(int day, int month, int year)
+bool isLeapYear(int year)
 {
-	int* monthDays = getMonthDaysArray(year);
-	return day >= 1 && day <= monthDays[month - 1];
-}
-
-bool validDate(int day, int month, int year)
-{
-	return validYear(year) && validMonth(month) && validDay(day, month, year);
+	return year % 4 == 0 && ! (year % 100 == 0 && ! (year % 400 == 0));
 }
 
 char* longDate(int day, int month, int year)
@@ -63,31 +103,5 @@ int getDayOfTheYear(int day, int month, int year)
 		dayOfTheYear += monthDays[i];
 	}
 	return dayOfTheYear;
-}
-
-int main()
-{
-	SetConsoleOutputCP(1252);
-	
-	int d, m, y;
-	
-	printf("Insira o dia: ");
-	scanf("%d", &d);
-	
-	printf("Insira o mês: ");
-	scanf("%d", &m);
-	
-	printf("Insira o ano: ");
-	scanf("%d", &y);
-	
-//	printf("\nDia: %d \nMês: %d \nAno: %d \n\n", d, m, y);
-	
-	printf("\na) Data %s.\n", validDate(d, m, y) ? "válida" : "inválida");
-	
-	printf("b) Data por extenso: %s.\n", longDate(d, m, y));
-	
-	printf("c) Dia do ano: %d", getDayOfTheYear(d, m, y));
-	
-	return 1;
 }
 
