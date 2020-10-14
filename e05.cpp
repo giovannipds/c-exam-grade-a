@@ -22,12 +22,18 @@ bool isLeapYear(int year)
 	return year % 4 == 0 && ! (year % 100 == 0 && ! (year % 400 == 0));
 }
 
-bool validDay(int day, int month, int year)
+int* getMonthDaysArray(int year)
 {
-	const int monthDays[12] = {
+	int monthDays[12] = {
 		31, isLeapYear(year) ? 29 : 28, 31, 30, 31, 30,
 		31, 31, 30, 31, 30, 31
 	};
+	return monthDays;
+}
+
+bool validDay(int day, int month, int year)
+{
+	int* monthDays = getMonthDaysArray(year);
 	return day >= 1 && day <= monthDays[month - 1];
 }
 
@@ -51,10 +57,7 @@ char* longDate(int day, int month, int year)
 
 int getDayOfTheYear(int day, int month, int year)
 {
-	const int monthDays[12] = {
-		31, isLeapYear(year) ? 29 : 28, 31, 30, 31, 30,
-		31, 31, 30, 31, 30, 31
-	};
+	int* monthDays = getMonthDaysArray(year);
 	int dayOfTheYear = day;
 	for (int i = 0; i < month - 1; i++) {
 		dayOfTheYear += monthDays[i];
