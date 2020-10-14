@@ -3,7 +3,36 @@
 
 char* convData(int dia, int mes, int ano)
 {
-	char* data = "07/03/2020";
+	char data[11];
+	if (ano < 100) {
+		ano += ano >= 50 ? 1900 : 2000;
+	}
+	for (int i = 0; i <= 10; i++) {
+		char c;
+		if (i == 0) {
+			c = dia / 10 + '0';
+		} else if (i == 1) {
+			c = dia % 10 + '0';
+		} else if (i == 2 || i == 5) {
+			c = '/';
+		} else if (i == 3) {
+			c = mes / 10 + '0';
+		} else if (i == 4) {
+			c = mes % 10 + '0';
+		} else if (i == 6) {
+			c = ano / 1000 + '0';
+		} else if (i == 7) {
+			c = ano % 1000 / 100 + '0';
+		} else if (i == 8) {
+			c = ano % 100 / 10 + '0';
+		} else if (i == 9) {
+			c = ano % 10 + '0';
+		} else {
+			c = '\0';
+		}
+//		printf("char %c\n", c);
+		data[i] = c;
+	}
 	return strdup(data);
 }
 
@@ -11,7 +40,9 @@ int main()
 {
 	SetConsoleOutputCP(1252);
 	char* data = convData(7, 3, 20);
-	printf("%s", data);
+	printf("%s\n", data);
+	char* data2 = convData(13, 9, 2018);
+	printf("%s\n", data2);
 	return 1;
 }
 
