@@ -16,15 +16,35 @@ void readDate(int* pointer)
 	return;
 }
 
+void orderDates(int* dateA, int* dateB)
+{
+	int dateTemp[3];
+	if (dateA[2] > dateB[2]) {
+		dateTemp[0] = dateA[0];
+		dateTemp[1] = dateA[1];
+		dateTemp[2] = dateA[2];
+		dateA[0] = dateB[0];
+		dateA[1] = dateB[1];
+		dateA[2] = dateB[2];
+		dateB[0] = dateTemp[0];
+		dateB[1] = dateTemp[1];
+		dateB[2] = dateTemp[2];
+	}
+	return;
+}
+
 int main()
 {
 	SetConsoleOutputCP(1252);
 	
-	int date1[3], date2[3];
-	readDate(date1);
-	readDate(date2);
-	printf("%d/%d/%d\n", date1[0], date1[1], date1[2]);
-	printf("%d/%d/%d\n", date2[0], date2[1], date2[2]);
+	int dateA[3], dateB[3];
+	readDate(dateA);
+	readDate(dateB);
+	printf("Data A: %d/%d/%d\n", dateA[0], dateA[1], dateA[2]);
+	printf("Data B: %d/%d/%d\n", dateB[0], dateB[1], dateB[2]);
+	orderDates(dateA, dateB);
+	printf("Data A: %d/%d/%d\n", dateA[0], dateA[1], dateA[2]);
+	printf("Data B: %d/%d/%d\n", dateB[0], dateB[1], dateB[2]);
 	
 	return 1;
 }
