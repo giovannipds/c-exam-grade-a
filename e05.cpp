@@ -49,9 +49,17 @@ char* longDate(int day, int month, int year)
 	return strdup(date);
 }
 
-int yearDate(int day, int month, int year)
+int getDayOfTheYear(int day, int month, int year)
 {
-	return 0;
+	const int monthDays[12] = {
+		31, isLeapYear(year) ? 29 : 28, 31, 30, 31, 30,
+		31, 31, 30, 31, 30, 31
+	};
+	int dayOfTheYear = day;
+	for (int i = 0; i < month - 1; i++) {
+		dayOfTheYear += monthDays[i];
+	}
+	return dayOfTheYear;
 }
 
 int main()
@@ -75,7 +83,7 @@ int main()
 	
 	printf("b) Data por extenso: %s.\n", longDate(d, m, y));
 	
-	printf("c) Dia do ano: %d", yearDate(d, m, y));
+	printf("c) Dia do ano: %d", getDayOfTheYear(d, m, y));
 	
 	return 1;
 }
