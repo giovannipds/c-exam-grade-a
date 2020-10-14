@@ -1,3 +1,4 @@
+#include <math.h>
 #include <stdio.h>
 #include <windows.h>
 
@@ -5,7 +6,7 @@ int main()
 {
 	SetConsoleOutputCP(1252);
 	
-	float p1, p2, p3, p4, oldA, a;
+	float p1, p2, p3, p4, oldA, a, vp;
 	
 	printf("Digite o preço do produto no estabelecimento 1: ");
 	scanf("%f", &p1);
@@ -27,12 +28,14 @@ int main()
 	printf("\nO valor médio da semana anterior era: R$%.2f", oldA);
 	printf("\nO valor médio da semana atual é: R$%.2f\n", a);
 	
+	vp = fabs((a / oldA - 1) * 100);
+	
 	if (oldA < a) {
-		printf("Houve inflação");
+		printf("Houve inflação de: %.1f%%", vp);
 	} else if (oldA > a) {
-		printf("Houve deflação");
+		printf("Houve deflação de: %.1f%%", vp);
 	} else {
-		printf("Houve estabilidade de preços");
+		printf("Houve estabilidade de preços.");
 	}
 	
 	return 1;
