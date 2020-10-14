@@ -39,14 +39,14 @@ bool validDate(int day, int month, int year)
 char* longDate(int day, int month, int year)
 {
 	char date[80];
+	char strYear[5];
 	itoa(day, date, 10);
 	strcat(date, " de ");
 	strcat(date, months[month - 1]);
 	strcat(date, " de ");
-//	strcat(date, itoa(year, date, 10));
-//	strcpy(date, );
-	//%d de %s de %d. //d, months[m - 1], y
-	return strdup(date); //month + year;
+	itoa(year, strYear, 10);
+	strcat(date, strYear);
+	return strdup(date);
 }
 
 int yearDate(int day, int month, int year)
@@ -71,7 +71,7 @@ int main()
 	
 //	printf("\nDia: %d \nMês: %d \nAno: %d \n\n", d, m, y);
 	
-	printf("a) Data %s.\n", validDate(d, m, y) ? "válida" : "inválida");
+	printf("\na) Data %s.\n", validDate(d, m, y) ? "válida" : "inválida");
 	
 	printf("b) Data por extenso: %s.\n", longDate(d, m, y));
 	
