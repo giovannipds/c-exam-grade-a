@@ -1,6 +1,29 @@
 #include <stdio.h>
 #include <windows.h>
 
+void readDate(int* pointer);
+void orderDates(int* dateA, int* dateB);
+bool isLeapYear(int year);
+int* getMonthDaysArray(int year);
+int getDayOfTheYear(int day, int month, int year);
+int daysDiff(int* minorDate, int* majorDate);
+
+int main()
+{
+	SetConsoleOutputCP(1252);
+	int dateA[3], dateB[3], diff;
+	readDate(dateA);
+	readDate(dateB);
+	orderDates(dateA, dateB);
+	diff = daysDiff(dateA, dateB);
+	printf("Entre as datas %d/%d/%d e %d/%d/%d há %d dia%s de diferença.", 
+		dateA[0], dateA[1], dateA[2],
+		dateB[0], dateB[1], dateB[2],
+		diff, diff != 1 ? "s" : "");
+	return 1;
+}
+
+
 void readDate(int* pointer)
 {	
 	printf("Insira o dia: ");
@@ -66,20 +89,5 @@ int daysDiff(int* minorDate, int* majorDate)
 		}
 	}
 	return diff;
-}
-
-int main()
-{
-	SetConsoleOutputCP(1252);
-	int dateA[3], dateB[3], diff;
-	readDate(dateA);
-	readDate(dateB);
-	orderDates(dateA, dateB);
-	diff = daysDiff(dateA, dateB);
-	printf("Entre as datas %d/%d/%d e %d/%d/%d há %d dia%s de diferença.", 
-		dateA[0], dateA[1], dateA[2],
-		dateB[0], dateB[1], dateB[2],
-		diff, diff != 1 ? "s" : "");
-	return 1;
 }
 
