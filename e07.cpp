@@ -9,24 +9,7 @@ bool validMonth(int month);
 bool validDay(int day, int month, int year);
 bool isLeapYear(int year);
 int* getMonthDaysArray(int year);
-
-void imprimeDataSeguinte(int dia, int mes, int ano)
-{
-	int* monthDays = getMonthDaysArray(ano);
-	if (dia + 1 > monthDays[mes - 1]) {
-		dia = 1;
-		if (mes + 1 > 12) {
-			mes = 1;
-			++ano;
-		} else {
-			++mes;
-		}
-	} else {
-		++dia;
-	}
-	printf("Próximo dia: %s", convData(dia, mes, ano));
-	return;
-}
+void imprimeDataSeguinte(int dia, int mes, int ano);
 
 int main()
 {
@@ -148,4 +131,22 @@ int* getMonthDaysArray(int year)
 bool isLeapYear(int year)
 {
 	return year % 4 == 0 && ! (year % 100 == 0 && ! (year % 400 == 0));
+}
+
+void imprimeDataSeguinte(int dia, int mes, int ano)
+{
+	int* monthDays = getMonthDaysArray(ano);
+	if (dia + 1 > monthDays[mes - 1]) {
+		dia = 1;
+		if (mes + 1 > 12) {
+			mes = 1;
+			++ano;
+		} else {
+			++mes;
+		}
+	} else {
+		++dia;
+	}
+	printf("Próximo dia: %s", convData(dia, mes, ano));
+	return;
 }
