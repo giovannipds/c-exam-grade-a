@@ -36,13 +36,33 @@ char* convData(int dia, int mes, int ano)
 	return strdup(data);
 }
 
+void extrair(char* data, int* dia, int* mes, int* ano)
+{
+	//char* diaStr[3];
+	*dia = *mes = *ano = 0;
+	for (int i = 0; data[i] != '\0'; i++) {
+		if (i == 0 || i == 1) {
+			*dia += data[i] - 48;
+		} else if (i == 3 || i == 4) {
+			*mes += data[i] - 48;
+		} else if (i >= 6 && i <= 9) {
+			*ano += data[i] - 48;
+		}
+//		printf("char %c\n", data[i]);
+	}
+	return;
+}
+
 int main()
 {
 	SetConsoleOutputCP(1252);
 	char* data = convData(7, 3, 20);
 	printf("%s\n", data);
-	char* data2 = convData(13, 9, 2018);
-	printf("%s\n", data2);
+//	char* data2 = convData(13, 9, 2018);
+//	printf("%s\n", data2);
+	int dia = 22, mes, ano;
+	extrair(data, &dia, &mes, &ano);
+	printf("Data %d/%d/%d", dia, mes, ano);
 	return 1;
 }
 
