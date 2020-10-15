@@ -61,12 +61,16 @@ int main()
 {
 	SetConsoleOutputCP(1252);
 	char* data = convData(7, 3, 20);
-	printf("%s\n", data);
+//	printf("%s\n", data);
 //	char* data2 = convData(13, 9, 2018);
 //	printf("%s\n", data2);
-	int dia = 22, mes, ano;
-	extrair(data, &dia, &mes, &ano);
-	printf("Data %d/%d/%d", dia, mes, ano);
+	int dia, mes, ano;
+//	extrair(data, &dia, &mes, &ano);
+//	printf("Data %d/%d/%d", dia, mes, ano);
+	char d[11];
+	printf("Digite uma data (DD/MM/YYYY): ");
+	scanf("%49[^\n]s", &d);
+	printf("Data %s", d);
 	return 1;
 }
 
