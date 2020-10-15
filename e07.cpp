@@ -1,6 +1,44 @@
 #include <stdio.h>
 #include <windows.h>
 
+char* convData(int dia, int mes, int ano);
+void extrair(char* data, int* dia, int* mes, int* ano);
+bool validateDate(int day, int month, int year);
+bool validYear(int year);
+bool validMonth(int month);
+bool validDay(int day, int month, int year);
+bool isLeapYear(int year);
+int* getMonthDaysArray(int year);
+
+int main()
+{
+	SetConsoleOutputCP(1252);
+	
+	char d[11];
+	int dia, mes, ano;
+	
+//	char* data = convData(7, 3, 20);
+//	printf("%s\n", data);
+
+//	char* data2 = convData(13, 9, 2018);
+//	printf("%s\n", data2);
+
+//	extrair(data, &dia, &mes, &ano);
+//	printf("Data %d/%d/%d", dia, mes, ano);
+	
+	printf("Digite uma data (DD/MM/YYYY): ");
+	scanf("%49[^\n]s", &d);
+	
+	extrair(d, &dia, &mes, &ano);
+	
+	if (validateDate(dia, mes, ano))
+	printf("Valida");
+	else
+	printf("INValida");
+	
+	return 1;
+}
+
 char* convData(int dia, int mes, int ano)
 {
 	char data[11];
@@ -57,20 +95,38 @@ void extrair(char* data, int* dia, int* mes, int* ano)
 	return;
 }
 
-int main()
+
+bool validateDate(int day, int month, int year)
 {
-	SetConsoleOutputCP(1252);
-	char* data = convData(7, 3, 20);
-//	printf("%s\n", data);
-//	char* data2 = convData(13, 9, 2018);
-//	printf("%s\n", data2);
-	int dia, mes, ano;
-//	extrair(data, &dia, &mes, &ano);
-//	printf("Data %d/%d/%d", dia, mes, ano);
-	char d[11];
-	printf("Digite uma data (DD/MM/YYYY): ");
-	scanf("%49[^\n]s", &d);
-	printf("Data %s", d);
-	return 1;
+	return validYear(year) && validMonth(month) && validDay(day, month, year);
 }
 
+bool validYear(int year)
+{
+	return year >= 1900 && year <= 2100;
+}
+
+bool validMonth(int month)
+{
+	return month >= 1 && month <= 12;
+}
+
+bool validDay(int day, int month, int year)
+{
+	int* monthDays = getMonthDaysArray(year);
+	return day >= 1 && day <= monthDays[month - 1];
+}
+
+int* getMonthDaysArray(int year)
+{
+	int monthDays[12] = {
+		31, isLeapYear(year) ? 29 : 28, 31, 30, 31, 30,
+		31, 31, 30, 31, 30, 31
+	};
+	return monthDays;
+}
+
+bool isLeapYear(int year)
+{
+	return year % 4 == 0 && ! (year % 100 == 0 && ! (year % 400 == 0));
+}
