@@ -10,6 +10,24 @@ bool validDay(int day, int month, int year);
 bool isLeapYear(int year);
 int* getMonthDaysArray(int year);
 
+void imprimeDataSeguinte(int dia, int mes, int ano)
+{
+	int* monthDays = getMonthDaysArray(ano);
+	if (dia + 1 > monthDays[mes - 1]) {
+		dia = 1;
+		if (mes + 1 > 12) {
+			mes = 1;
+			++ano;
+		} else {
+			++mes;
+		}
+	} else {
+		++dia;
+	}
+	printf("Próximo dia: %s", convData(dia, mes, ano));
+	return;
+}
+
 int main()
 {
 	SetConsoleOutputCP(1252);
@@ -28,13 +46,14 @@ int main()
 	
 	printf("Digite uma data (DD/MM/YYYY): ");
 	scanf("%49[^\n]s", &d);
+	printf("\n");
 	
 	extrair(d, &dia, &mes, &ano);
 	
 	if (validateDate(dia, mes, ano))
-	printf("Valida");
+		imprimeDataSeguinte(dia, mes, ano);
 	else
-	printf("INValida");
+		printf("Data inválida");
 	
 	return 1;
 }
