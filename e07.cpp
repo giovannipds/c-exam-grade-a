@@ -38,18 +38,22 @@ char* convData(int dia, int mes, int ano)
 
 void extrair(char* data, int* dia, int* mes, int* ano)
 {
-	//char* diaStr[3];
-	*dia = *mes = *ano = 0;
+	char* diaStr[3];
+	char* mesStr[3];
+	char* anoStr[5];
 	for (int i = 0; data[i] != '\0'; i++) {
 		if (i == 0 || i == 1) {
-			*dia += data[i] - 48;
+			diaStr[i] = &data[i];
 		} else if (i == 3 || i == 4) {
-			*mes += data[i] - 48;
+			mesStr[i - 3] = &data[i];
 		} else if (i >= 6 && i <= 9) {
-			*ano += data[i] - 48;
+			anoStr[i - 6] = &data[i];
 		}
 //		printf("char %c\n", data[i]);
 	}
+	*dia = atoi(*diaStr);
+	*mes = atoi(*mesStr);
+	*ano = atoi(*anoStr);
 	return;
 }
 
