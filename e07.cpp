@@ -20,18 +20,16 @@ int main()
 	
 //	char* data = convData(7, 3, 20);
 //	printf("%s\n", data);
-
 //	char* data2 = convData(13, 9, 2018);
 //	printf("%s\n", data2);
-
-//	extrair(data, &dia, &mes, &ano);
-//	printf("Data %d/%d/%d", dia, mes, ano);
 	
 	printf("Digite uma data (DD/MM/YYYY): ");
 	scanf("%49[^\n]s", &d);
 	printf("\n");
 	
 	extrair(d, &dia, &mes, &ano);
+	
+//	printf("Data %d/%d/%d", dia, mes, ano);
 	
 	if (validateDate(dia, mes, ano))
 		imprimeDataSeguinte(dia, mes, ano);
@@ -78,19 +76,9 @@ char* convData(int dia, int mes, int ano)
 
 void extrair(char* data, int* dia, int* mes, int* ano)
 {
-	char* diaStr[3];
-	char* mesStr[3];
-	char* anoStr[5];
-	for (int i = 0; data[i] != '\0'; i++) {
-		if (i == 0 || i == 1) {
-			diaStr[i] = &data[i];
-		} else if (i == 3 || i == 4) {
-			mesStr[i - 3] = &data[i];
-		} else if (i >= 6 && i <= 9) {
-			anoStr[i - 6] = &data[i];
-		}
-//		printf("char %c\n", data[i]);
-	}
+	char* diaStr[3] = { &data[0], &data[1] };
+	char* mesStr[3] = { &data[3], &data[4] };
+	char* anoStr[5] = { &data[6], &data[7], &data[8], &data[9] };
 	*dia = atoi(*diaStr);
 	*mes = atoi(*mesStr);
 	*ano = atoi(*anoStr);
